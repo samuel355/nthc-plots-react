@@ -8,7 +8,7 @@ const protect = require('../Middleware/AuthMiddleware.js')
 const plotRouter = express.Router()
 
 //ADD PLOT
-plotRouter.post('/addPlot', protect, asyncHandler(async(req, res) => {
+plotRouter.post('/addPlot', asyncHandler(async(req, res) => {
 
     const {geometry, coordinates, properties, client} = req.body
     const plotDetails = await PlotDetails.create({
@@ -31,7 +31,7 @@ plotRouter.get('/plots', asyncHandler(async(req, res) => {
         const plots = await PlotDetails.find()
         
         if(plots.length === 0){
-            res.json({message: 'Not Plots available'})
+            res.json({message: 'No Plots available'})
         }else{
             res.status(200).json(plots)
         }
@@ -128,7 +128,7 @@ plotRouter.get('/search', protect, asyncHandler(async(req, res) => {
     
     const plots = await PlotDetails.find({
         $or: [
-            { "properties.Plot_No" : { $in: keyword } },
+            { "properties.ObjectID" : { $in: keyword } },
         ]
     })
 

@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import { Link, useLocation} from 'react-router-dom'
 import logo from '../assets/img/logo.png'
-
+import { logout } from '../redux/features/UserSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
 const Navbar = () => {
   const loc = useLocation();
+  const dispatch = useDispatch()
+  const {user} = useSelector((state) => ({...state.user}))
+
 
   return (
     <div>
@@ -29,9 +33,18 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="nav-right-part nav-right-part-mobile">
-                <Link className="btn btn-yellow text-center" to="/login">
-                  LOGIN
-                </Link>
+                {
+                  !user ? (
+                    <Link className="btn btn-yellow text-center" to="/login">
+                      LOGIN
+                    </Link>
+                  ) : (
+                      <Link onClick={() => dispatch(logout())}  className="btn btn-yellow text-center">
+                        LOGOUT
+                      </Link>
+                  )
+                }
+                
               </div>
               <div className="collapse navbar-collapse" id="realdeal_main_menu">
                 <ul className="navbar-nav menu-open readeal-top">
@@ -50,9 +63,17 @@ const Navbar = () => {
                 </ul>
               </div>
               <div className="nav-right-part nav-right-part-desktop readeal-top align-items-center">
-                <Link className="btn btn-yellow text-center" to="/login">
-                  LOGIN
-                </Link>
+                {
+                  !user ? (
+                    <Link className="btn btn-yellow text-center" to="/login">
+                      LOGIN
+                    </Link>
+                  ) : (
+                      <Link onClick={() => dispatch(logout())}  className="btn btn-yellow text-center">
+                        LOGOUT
+                      </Link>
+                  )
+                }
               </div>
             </div>
           </nav>

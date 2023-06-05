@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './responsive.css';
 import './style.css'
 import './vendor.css'
+import {ToastContainer} from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 
 import store from './redux/store';
 import { Provider } from 'react-redux';
@@ -62,6 +64,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
