@@ -1,7 +1,0 @@
-{"type":"FeatureCollection", "features": [
-{"type":"Feature","geometry":{"type":"LineString","coordinates":[[647677.7421759397,737328.3567185515],[647835.8064492216,737188.7307533125],[648010.3842950461,737034.6746095729]]},"properties":{"Id":0,"Road_name":"Republic Street"}},
-{"type":"Feature","geometry":{"type":"LineString","coordinates":[[647749.7502672735,737354.1047509857],[647912.5064969173,737210.9828451583],[648038.3273431727,737100.2196484273]]},"properties":{"Id":0,"Road_name":"Independence Street"}},
-{"type":"Feature","geometry":{"type":"LineString","coordinates":[[647612.9937999689,737294.5150357946],[647824.6702332734,737098.8416355042],[647971.8885497217,736962.8179156958]]},"properties":{"Id":0,"Road_name":"Liberation Street"}},
-{"type":"Feature","geometry":{"type":"LineString","coordinates":[[647818.598806583,737374.3773691073],[647732.8815188162,737353.6558860177],[647653.8340603553,737330.6106258433],[647613.1492985314,737315.5570398689],[647596.4460557427,737299.141986518]]},"properties":{"Id":0,"Road_name":"Kwadaso to Agric Nzema Road"}},
-{"type":"Feature","geometry":{"type":"LineString","coordinates":[[648065.9627579446,737144.9976782327],[648020.1645257152,737038.2405098336],[647975.8614305462,736946.471427288]]},"properties":{"Id":0,"Road_name":"Kwadaso To Nwamase Road"}}
-]}

@@ -8,7 +8,8 @@ const PlotDetailSchema = mongoose.Schema({
     },
     properties: {
         ObjectID: {type: Number,required: true, unique: true},
-        Plot_Number: {type: Number},
+        Plot_Number: {type: String},
+        Plot_Size: {type: String},
         Plot_Status: {type: String},
         Plot_Detail: {type: String},
     },

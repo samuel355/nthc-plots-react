@@ -1,13 +1,5 @@
 @charset "UTF-8";
 
-/*!
- * animate.css -https://daneden.github.io/animate.css/
- * Version - 3.7.2
- * Licensed under the MIT license - http://opensource.org/licenses/MIT
- *
- * Copyright (c) 2019 Daniel Eden
- */
-
 @-webkit-keyframes bounce {
   from,
   20%,
@@ -12469,7 +12461,7 @@ img.mfp-img {
   display: none;
 }
 
-@charset 'UTF-8';
+
 /* Slider */
 .slick-loading .slick-list {
   background: #fff url("./assets/img/ajax-loader.gif") center center no-repeat;
@@ -12728,7 +12720,7 @@ img.mfp-img {
   pointer-events: none;
 }
 .nice-select.disabled:after {
-  border-color: $color-gray80;
+  border-color: --var(color-gray80);
 }
 .nice-select.wide {
   width: 100%;
