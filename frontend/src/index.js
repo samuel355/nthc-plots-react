@@ -19,6 +19,7 @@ import PurchasePlot from './pages/PurchasePlot';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Login from './pages/Login';
+import EditPlot from './pages/EditPlot';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: '/edit/:id',
+    element: <EditPlot />
   },
   {
     path: "*",

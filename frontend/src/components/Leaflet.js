@@ -1,14 +1,18 @@
 import React, { useEffect} from 'react'
-import { MapContainer, TileLayer, Popup, Polygon, Polyline, } from 'react-leaflet'
+import { MapContainer, TileLayer, Popup, Polygon, Polyline, Pane, Rectangle, Marker } from 'react-leaflet'
 import "leaflet/dist/leaflet.css";
 import {Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
 import { getPlots, getPlotName } from '../redux/features/PlotSlice';
 import PlotInner from './PlotInner';
+import L from 'leaflet'
+import RoadInner from './RoadInner';
+import roads from '../Roads_Project'
 
 const Leaflet = () => {
     const dispatch = useDispatch()
     const {plots} = useSelector((state) => ({...state.plot}))
+    const {user} = useSelector((state) => ({...state.user}))
 
     const center = [6.667371, -1.662522]
     const zoom = 17.5
@@ -36,7 +40,7 @@ const Leaflet = () => {
         }
     }
 
-    //convert coordinates
+    //convert polygon coordinates
     function convertCoordinates(array){
         return array.map(innerCoordinates => {
             return innerCoordinates.map(subCoordinates => {
@@ -45,6 +49,12 @@ const Leaflet = () => {
         })
     }
 
+    //convert roads coordinates
+    function roadsCoordinates(array){
+        return array.map(innerCoordinates => {
+            return [innerCoordinates [1], innerCoordinates [0]];
+        })  
+    }
 
     return (
         <MapContainer center={center} zoom={zoom} style={{height: '100%', width: '100%'}}>
@@ -54,22 +64,31 @@ const Leaflet = () => {
             />
 
             {
+                roads.map((road) => (
+                    <Polyline pathOptions={{ color: 'gray', weight: 12, lineCap: 'round'}} positions={roadsCoordinates(road.geometry.coordinates)}>
+                        <RoadInner coord={roadsCoordinates(road.geometry.coordinates)} details=""  />
+                    </Polyline>
+                ))
+            }
+            
+
+            {
                 plots && plots.map((plot) => (
                     <Polygon key={plot._id} positions={convertCoordinates(plot.geometry.coordinates)} fillOpacity={0.9}  pathOptions={{color: `${renderColor(plot.properties.Plot_Status)}`}}>
                         <PlotInner coord={convertCoordinates(plot.geometry.coordinates)} plot_number={parseInt(plot.properties.Plot_Number)} />   
                         <Popup style={{width: '100%'}}>
-                            <h4>Plot Details</h4>
-                            <p>{`${plot.properties?.Plot_Detail}`}</p>
-                            <div style={{padding: '15px'}}>
-                                <button onClick={() => handleGetPlotName(plot._id)} className='btn btn-yellow'>
+                            <h6>Plot Details - <span style={{color: `${renderColor(plot.properties.Plot_Status)}`, fontSize: 12, fontWeight: 700}}>{plot.properties.Plot_Status}</span></h6> <hr />
+                            <p style={{fontSize: 15, fontWeight: 500}}>{`${plot.properties?.Plot_Detail}`}</p>
+                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                <Link style={{backgroundColor: 'orange', color: 'white', padding: 5, }} onClick={() => handleGetPlotName(plot._id)}>
                                     PURCHASE
-                                </button> <br />
+                                </Link> 
                                 {
-                                    // user && (
-                                    //     <Link to={`/edit/${plot._id}`} className='btn btn-yellow mt-3'>
-                                    //         Edit Plot
-                                    //     </Link>
-                                    // )
+                                    user && (
+                                        <Link to={`/edit/${plot._id}`} style={{backgroundColor: 'orange', color: 'white', padding: 5}} >
+                                        EDIT PLOT
+                                    </Link>
+                                    )
                                 }
                             </div>
                         </Popup>
