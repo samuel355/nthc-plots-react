@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react'
-import { MapContainer, TileLayer, Popup, Polygon, Polyline, Pane, Rectangle, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer, Popup, Polygon, Polyline, Rectangle, Tooltip} from 'react-leaflet'
 import "leaflet/dist/leaflet.css";
 import {Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
@@ -66,7 +66,9 @@ const Leaflet = () => {
             {
                 roads.map((road) => (
                     <Polyline pathOptions={{ color: 'gray', weight: 12, lineCap: 'round'}} positions={roadsCoordinates(road.geometry.coordinates)}>
-                        <RoadInner coord={roadsCoordinates(road.geometry.coordinates)} details=""  />
+                        <Tooltip direction="bottom" offset={[0, 20]} opacity={1} sticky>
+                            {road.properties.Road_name}
+                        </Tooltip>
                     </Polyline>
                 ))
             }
