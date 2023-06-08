@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const visitorSchema = mongoose.Schema({
+    plotID: {type: mongoose.Types.ObjectId},
     fullname: String,
     email: String,
     address: String,

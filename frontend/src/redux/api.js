@@ -18,3 +18,6 @@ export const getAllPlots = () => API.get('/plots')
 
 //User login 
 export const login = (formValue) => API.post('/login', formValue)
+
+//Visitor send interests 
+export const sendInterest = (formValue) => API.post('/interests', formValue)

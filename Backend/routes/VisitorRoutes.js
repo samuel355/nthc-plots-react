@@ -9,7 +9,7 @@ const path = require('path')
 const visitorRouter = express.Router()
 
 visitorRouter.post('/interests', asyncHandler(async(req, res) => {
-    const {fullname, email, country, phone, address, option, plotDetails} = req.body
+    const {fullname, email, country, phone, address, option, plotDetails, plotID} = req.body
 
     //Email 
     const filePath = path.join(__dirname, '../emails/main.html');
@@ -45,6 +45,7 @@ visitorRouter.post('/interests', asyncHandler(async(req, res) => {
             address,
             option,
             plotDetails,
+            plotID
         })
 
         if(visitor){
@@ -52,7 +53,7 @@ visitorRouter.post('/interests', asyncHandler(async(req, res) => {
                 if (error) {
                   console.log(error);
                 } else {
-                    res.json({message: 'Thank you for your message, kindly check your email box or spam box for the necessary action'})
+                    res.json({message: 'Thank you for your message, kindly check your email or spam box for the necessary action'})
                     res.status(200).send(info.response)
                     console.log('Email sent: ' + info.response);
                 }

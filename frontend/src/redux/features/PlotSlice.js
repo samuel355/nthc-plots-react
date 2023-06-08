@@ -13,25 +13,28 @@ export const getPlots = createAsyncThunk("/plots", async (_, {rejectWithValue}) 
   }
 })
 
+
 const plotSlice = createSlice({
     name: 'plot',
     initialState: {
     plot:{},
     plots: [],
     plotName: '',
+    plotID: null,
     loading: false,
     error: "",
   },
 
   reducers: {
-      getPlotName : (state, action) => {
-        const plotName = state.plots.find((plot) => plot._id === action.payload)
-        if (plotName){
-          state.plotName = `Plot Number ${plotName.properties.Plot_No}  ${plotName.properties.Street_Nam} `;
-        }else{
-          console.log('Error Ocurred')
-        }
-      },
+    getPlotName : (state, action) => {
+      const plotName = state.plots.find((plot) => plot._id === action.payload)
+      if (plotName){
+        state.plotID = plotName._id;
+        state.plotName = plotName.properties.Plot_Detail;
+      }else{
+        console.log('Error Ocurred')
+      }
+    },
   },
 
   extraReducers: (builder) => {

@@ -128,7 +128,7 @@ plotRouter.get('/search', protect, asyncHandler(async(req, res) => {
     
     const plots = await PlotDetails.find({
         $or: [
-            { "properties.ObjectID" : { $in: keyword } },
+            { "_id" : { $in: keyword } },
         ]
     })
 
