@@ -16,7 +16,9 @@ const PlotDetailSchema = mongoose.Schema({
     client: {
         fullName: {type: String},
         email: {type: String},
+        country: {type: String},
         address: {type: String},
+        plotInfo:{type: String},
         phone: {type: Number},
         status: {type: String},
         agent: {type: String},

@@ -41,6 +41,22 @@ plotRouter.get('/plots', asyncHandler(async(req, res) => {
     }
 }))
 
+//FETCH ALL PLOTS
+plotRouter.get('/clients', protect, asyncHandler(async(req, res) => {
+    try{
+        const clients = await PlotDetails.find('client')
+        
+        if(clients.length === 0){
+            res.json({message: 'No Clients available'})
+        }else{
+            res.status(200).json(clients)
+        }
+        
+    }catch(err){
+        res.status(500).json({message: err})
+    }
+}))
+
 
 //GET SINGLE PLOT WITH ID
 plotRouter.get('/plots/:id', protect, asyncHandler(async(req, res) => {
@@ -96,9 +112,11 @@ plotRouter.patch('/plot/updates/:id', protect, asyncHandler(async(req, res) => {
         const plotDetails = await PlotDetails.findById(id)
 
         if (plotDetails) {
-            plotDetails.properties.Status = req.body.status || plotDetails.properties.Status
+            plotDetails.properties.Plot_Status = req.body.status || plotDetails.properties.Plot_Status
+            plotDetails.client.plotInfo = req.body.plotDetails || plotDetails.client.plotInfo
             plotDetails.client.fullName = req.body.fullName || plotDetails.client.fullName
             plotDetails.client.phone = req.body.phone || plotDetails.client.phone
+            plotDetails.client.country = req.body.country || plotDetails.client.country
             plotDetails.client.email = req.body.email || plotDetails.client.email
             plotDetails.client.address = req.body.address || plotDetails.client.address
             plotDetails.client.agent = req.body.agent || plotDetails.client.agent

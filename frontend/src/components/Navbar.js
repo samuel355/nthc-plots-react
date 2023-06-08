@@ -29,7 +29,8 @@ const Navbar = () => {
               </div>
               <div className="logo readeal-top">
                 <Link to="/">
-                  <img src={logo} alt="logo" />
+                  {/* <img src={logo} alt="logo" /> */}
+                  <h4 style={{fontSize: '24px', fontWeight: 800, color: 'black'}}>N.T.H.C.</h4>
                 </Link>
               </div>
               <div className="nav-right-part nav-right-part-mobile">

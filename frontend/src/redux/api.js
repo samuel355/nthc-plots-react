@@ -21,3 +21,6 @@ export const login = (formValue) => API.post('/login', formValue)
 
 //Visitor send interests 
 export const sendInterest = (formValue) => API.post('/interests', formValue)
+
+//Update Plot
+export const plotUpdate = (id, plotDetails) => API.patch(`plot/updates/${id}`, plotDetails)
