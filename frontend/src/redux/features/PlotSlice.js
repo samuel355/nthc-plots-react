@@ -17,8 +17,8 @@ export const getPlots = createAsyncThunk("/plots", async (_, {rejectWithValue}) 
 export const updatePlot = createAsyncThunk("/plot/update", async ({id, toast, navigate, status, plotDetails, fullName, email, country, phone, address, agent, totalAmount, paidAmount, remainingAmount}, {rejectWithValue}) => {
   try {
     const response = await api.plotUpdate(id, {status, fullName, plotDetails, phone, email, country, address, agent, totalAmount, paidAmount, remainingAmount})
-    navigate('/purchase')
     toast.success('Plot Updated Successfully')
+    //navigate('/purchase')
     return response.data;
     
   } catch (error) {

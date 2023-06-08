@@ -41,15 +41,19 @@ plotRouter.get('/plots', asyncHandler(async(req, res) => {
     }
 }))
 
-//FETCH ALL PLOTS
+//FETCH ALL CLIENTS
 plotRouter.get('/clients', protect, asyncHandler(async(req, res) => {
     try{
-        const clients = await PlotDetails.find('client')
-        
-        if(clients.length === 0){
-            res.json({message: 'No Clients available'})
+        const plots = await PlotDetails.find()
+        if(plots.length === 0){
+            return res.json({message: 'No Clients available'})
         }else{
-            res.status(200).json(clients)
+            let clients = []
+            clients = plots.map((plot) => plot.client)
+            if(clients){
+                res.json(clients)
+            }
+            
         }
         
     }catch(err){
