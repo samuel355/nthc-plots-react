@@ -64,7 +64,7 @@ const Leaflet = () => {
                 roads.map((road) => (
                     <Polyline key={road._id} pathOptions={{ color: 'gray', weight: 12, lineCap: 'round', lineJoin: 'miter'}} positions={roadsCoordinates(road.geometry.coordinates)}>
                         <Tooltip direction="bottom" offset={[0, 20]} opacity={1} sticky>
-                            {road.properties.Road_name}
+                            {road.properties?.Road_name}
                         </Tooltip>
                     </Polyline>
                 ))
@@ -73,14 +73,14 @@ const Leaflet = () => {
 
             {
                 plots && plots.map((plot) => (
-                    <Polygon key={plot._id} positions={convertCoordinates(plot.geometry.coordinates)} fillOpacity={0.9}  pathOptions={{color: `${renderColor(plot.properties.Plot_Status)}`}}>
-                        <PlotInner coord={convertCoordinates(plot.geometry.coordinates)} plot_number={parseInt(plot.properties.Plot_Number)} />   
+                    <Polygon key={plot._id} positions={convertCoordinates(plot.geometry.coordinates)} fillOpacity={0.9}  pathOptions={{color: `${renderColor(plot.properties?.Plot_Status)}`}}>
+                        <PlotInner coord={convertCoordinates(plot.geometry.coordinates)} plot_number={parseInt(plot.properties?.Plot_Number)} />   
                         <Popup style={{width: '100%'}}>
-                            <h6>Plot Details - <span style={{color: `${renderColor(plot.properties.Plot_Status)}`, fontSize: 12, fontWeight: 700}}>{plot.properties.Plot_Status}</span></h6> <hr />
+                            <h6>Plot Details - <span style={{color: `${renderColor(plot.properties?.Plot_Status)}`, fontSize: 12, fontWeight: 700}}>{plot.properties?.Plot_Status}</span></h6> <hr />
                             <p style={{fontSize: 15, fontWeight: 500}}>{`${plot.properties?.Plot_Detail}`}</p>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 {
-                                    plot.properties.Plot_Status != 'SOLD' &&(
+                                    plot.properties?.Plot_Status != 'SOLD' &&(
                                         <Link style={{backgroundColor: 'orange', color: 'white', padding: 5, }} onClick={() => handleGetPlotName(plot._id)}>
                                             PURCHASE
                                         </Link> 

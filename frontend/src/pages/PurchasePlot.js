@@ -11,7 +11,7 @@ import { submitInterest } from '../redux/features/VisitorSlice';
 
 
 const PurchasePlot = () => {
-  const { plotName, plotID} = useSelector((state) => ({...state.plot}))
+  const { plotName, plotID, plot} = useSelector((state) => ({...state.plot}))
   const dispatch = useDispatch()
 
   let plotDetails = plotName
@@ -97,7 +97,11 @@ const PurchasePlot = () => {
           <div className="row" id='top'>
             <div className="col-12" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <div style={{width: '100%', height: '625px', backgroundColor: 'grey', marginTop: '1rem'}}>
-                <Leaflet />
+                {
+                  plot?.length > 0 && (
+                    <Leaflet />
+                  )
+                }
               </div>
               <div id='message-form' />
             </div>
