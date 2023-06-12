@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react'
-import { MapContainer, TileLayer, Popup, Polygon, Polyline, Rectangle, Tooltip} from 'react-leaflet'
+import { MapContainer, TileLayer, Popup,Polygon, Polyline, Tooltip} from 'react-leaflet'
 import "leaflet/dist/leaflet.css";
 import {Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
@@ -9,13 +9,13 @@ import roads from '../Roads_Project'
 
 const Leaflet = () => {
     const dispatch = useDispatch()
-    const {plots, plotName} = useSelector((state) => ({...state.plot}))
+    const {plots} = useSelector((state) => ({...state.plot}))
     const {user} = useSelector((state) => ({...state.user}))
 
     const center = [6.667371, -1.662522]
     const zoom = 17.5
 
-    useEffect(() => {
+    useEffect(() => { 
         dispatch(getPlots())
     }, [dispatch])
 
@@ -41,7 +41,7 @@ const Leaflet = () => {
     function convertCoordinates(array){
         return array.map(innerCoordinates => {
             return innerCoordinates.map(subCoordinates => {
-                return [subCoordinates [1], subCoordinates [0]];
+                return [subCoordinates[1], subCoordinates[0]];
             })
         })
     }
@@ -49,7 +49,7 @@ const Leaflet = () => {
     //convert roads coordinates
     function roadsCoordinates(array){
         return array.map(innerCoordinates => {
-            return [innerCoordinates [1], innerCoordinates [0]];
+            return [innerCoordinates[1], innerCoordinates[0]];
         })  
     }
 
@@ -80,7 +80,7 @@ const Leaflet = () => {
                             <p style={{fontSize: 15, fontWeight: 500}}>{`${plot.properties?.Plot_Detail}`}</p>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 {
-                                    plot.properties?.Plot_Status != 'SOLD' &&(
+                                    plot.properties?.Plot_Status !== 'SOLD' &&(
                                         <Link style={{backgroundColor: 'orange', color: 'white', padding: 5, }} onClick={() => handleGetPlotName(plot._id)}>
                                             PURCHASE
                                         </Link> 

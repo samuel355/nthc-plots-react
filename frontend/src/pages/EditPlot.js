@@ -16,9 +16,9 @@ const plotInfo= {
     phone:'',
     plotDetails: '',
     agent: '',
-    totalAmount: '',
-    paidAmount:  '',
-    remainingAmount: '',
+    totalAmount: 0,
+    paidAmount: 0,
+    remainingAmount: 0,
 }
 
 const EditPlot = () => {
@@ -30,6 +30,7 @@ const EditPlot = () => {
   const [plotData, setPlotData] = useState(plotInfo)
   const [allDetails, setAllDetails] = useState({})
   const {status, plotDetails, fullName, email, country, phone, address, agent, totalAmount, paidAmount, remainingAmount} = plotData
+  const [calcAmount, setCalcAmount] = useState(0)
   const plotStatus = status;
 
   useEffect(() => {
@@ -53,9 +54,9 @@ const EditPlot = () => {
               phone: singlePlot?.client?.phone || '',
               address: singlePlot?.client?.address || '',
               agent: singlePlot?.client?.agent || '',
-              totalAmount: singlePlot?.client?.totalAmount,
-              paidAmount: singlePlot?.client?.paidAmount,
-              remainingAmount: singlePlot?.client?.remainingAmount
+              totalAmount: singlePlot?.client?.totalAmount || 0,
+              paidAmount: singlePlot?.client?.paidAmount || 0,
+              remainingAmount: singlePlot?.client?.remainingAmount || 0,
             }
           )
       }else{
@@ -64,21 +65,31 @@ const EditPlot = () => {
   }, [id, plots])
 
   const onInputChange = (e) => {
-      e.preventDefault()
-      const {name, value} = e.target
-      setPlotData({...plotData, [name]: value});
+    e.preventDefault()
+    const {name, value} = e.target
+    setPlotData({...plotData, [name]: value});
+  }
+
+  let amtRemaining = 0
+
+  const calculateAmount = (e) => {
+    amtRemaining = totalAmount - paidAmount
+    setCalcAmount(amtRemaining)
+    setPlotData({...plotData, remainingAmount: amtRemaining})
   }
 
   const handleUpdate = (e) => {
     e.preventDefault();
-
     console.log(plotData)
 
     if(totalAmount === undefined && paidAmount === undefined && remainingAmount === undefined){
         toast.error('Check the total amount, amount paying and the remaining amount')
-
-    }else if (fullName === undefined && phone === undefined){
-        toast.error('Add client Name and Phone number at least')
+    }else if(totalAmount === 0 && paidAmount === 0 && remainingAmount === 0){
+      toast.error('Check the total amount and the amount paying field')
+    }else if (remainingAmount < 0) {
+      toast.error('Check the payment amount and the total amount again')
+    }else if (fullName === '' && email === '' && phone === ''){
+        toast.error('Add client Name, email address and Phone number at least')
     }else if(totalAmount === '' && paidAmount === '' && remainingAmount === ''){
         toast.error('Check the total amount, amount paying and the remaining amount')
     }else{
@@ -97,7 +108,8 @@ const EditPlot = () => {
         <BreadCrumb title="Edit Plot" />
         <ToastMesg />
 
-        <div className="row">
+        <div className="container">
+          <div className="row">
             <div className="col-12" >
               <form className="contact-form-wrap contact-form-bg" onSubmit={handleUpdate}>
                   <h4 className='text-center'> EDIT PLOT</h4>
@@ -131,19 +143,19 @@ const EditPlot = () => {
                     <div className="col-md-4">
                       <div className="rld-single-input">
                         <label htmlFor="plot-details"> Total Amount</label>
-                        <input type='number' onChange={onInputChange} name='totalAmount' value={totalAmount} />
+                        <input type='number' onKeyUp={calculateAmount} onChange={onInputChange} id='totalAmount' name='totalAmount' value={totalAmount} />
                       </div>
                     </div>
                     <div className="col-md-4">
                       <div className="rld-single-input">
                         <label htmlFor="plot-details"> Paid Amount</label>
-                        <input type='number' onChange={onInputChange} name='paidAmount' value={paidAmount} />
+                        <input type='number' onKeyUp={calculateAmount} onChange={onInputChange} name='paidAmount' id='paidAmount' value={paidAmount} />
                       </div>
                     </div>
                     <div className="col-md-4">
                       <div className="rld-single-input">
                         <label htmlFor="plot-details"> Remaining Amount</label>
-                        <input type='number' onChange={onInputChange} name='remainingAmount' value={remainingAmount} />
+                        <input type='number' disabled onChange={onInputChange} name='remainingAmount' id='remainingAmount' value={plotData.remainingAmount} />
                       </div>
                     </div>
                   </div>
@@ -528,6 +540,7 @@ const EditPlot = () => {
                   </div>
               </form>
             </div>
+          </div>
         </div>
     </>
   )
