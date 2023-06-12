@@ -81,30 +81,8 @@ plotRouter.get('/plots/:id', protect, asyncHandler(async(req, res) => {
     }
 }))
 
+
 //UPDATE PLOT
-plotRouter.put('/plot/update/:id', protect, asyncHandler(async(req, res) => {
-    
-    const plot = await PlotDetails.findById(req.params.id)
-
-    try {
-        if (plot) {
-            plot.properties.Status = req.body.status || plot.properties.Status
-            plot.client = req.body.clientDetails || plot.client
-            
-            const updatedPlot = await plot.save()
-            res.json(updatedPlot)
-
-        } else {
-            res.status(404).json({message: 'Plot not found'})
-        }
-
-    } catch (error) {
-        res.status(401).json({message: 'Sorry Something went wrong, try again'})
-        console.log(error)
-    }
-}))
-
-//UPDATE PLOT ALT
 plotRouter.patch('/plot/updates/:id', protect, asyncHandler(async(req, res) => {
     const {id} = req.params;
 
@@ -116,21 +94,37 @@ plotRouter.patch('/plot/updates/:id', protect, asyncHandler(async(req, res) => {
         const plotDetails = await PlotDetails.findById(id)
 
         if (plotDetails) {
-            plotDetails.properties.Plot_Status = req.body.status || plotDetails.properties.Plot_Status
-            plotDetails.client.plotInfo = req.body.plotDetails || plotDetails.client.plotInfo
-            plotDetails.client.fullName = req.body.fullName || plotDetails.client.fullName
-            plotDetails.client.phone = req.body.phone || plotDetails.client.phone
-            plotDetails.client.country = req.body.country || plotDetails.client.country
-            plotDetails.client.email = req.body.email || plotDetails.client.email
-            plotDetails.client.address = req.body.address || plotDetails.client.address
-            plotDetails.client.agent = req.body.agent || plotDetails.client.agent
-            plotDetails.client.totalAmount = req.body.totalAmount || plotDetails.client.totalAmount
-            plotDetails.client.paidAmount = req.body.paidAmount || plotDetails.client.paidAmount
-            plotDetails.client.remainingAmount = req.body.remainingAmount || plotDetails.client.remainingAmount
+            //If plot status is gonna be available delete client data
+            if(req.body.status === 'AVAILABLE'){
+                plotDetails.properties.Plot_Status = 'AVAILABLE' 
+                const deleteClientDetails = await PlotDetails.updateOne(
+                    {_id: req.params.id},
+                    { $set: {'client': {}}}
+                )
+                if(deleteClientDetails){
+                    const updateStatus = await plotDetails.save()
+                    res.json(updateStatus)
+                }
+                
+                
+            }else{
+                plotDetails.properties.Plot_Status = req.body.status || plotDetails.properties.Plot_Status
+                plotDetails.client.plotInfo = req.body.plotDetails || plotDetails.client.plotInfo
+                plotDetails.client.fullName = req.body.fullName || plotDetails.client.fullName
+                plotDetails.client.phone = req.body.phone || plotDetails.client.phone
+                plotDetails.client.country = req.body.country || plotDetails.client.country
+                plotDetails.client.email = req.body.email || plotDetails.client.email
+                plotDetails.client.address = req.body.address || plotDetails.client.address
+                plotDetails.client.agent = req.body.agent || plotDetails.client.agent
+                plotDetails.client.totalAmount = req.body.totalAmount || plotDetails.client.totalAmount
+                plotDetails.client.paidAmount = req.body.paidAmount || plotDetails.client.paidAmount
+                plotDetails.client.remainingAmount = req.body.remainingAmount || plotDetails.client.remainingAmount
 
-            const newPlot = await plotDetails.save()
+                const newPlot = await plotDetails.save()
 
-            res.status(200).json(newPlot)
+                res.status(200).json(newPlot)
+            }
+            
 
         } else {
             res.status(404).json({message: 'Plot not found'})
