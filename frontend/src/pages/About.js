@@ -18,10 +18,14 @@ const About = () => {
                 <h2
                   className="title"
                 > About Us</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore a quisquam magni nostrum qui, perferendis autem asperiores necessitatibus sit ea debitis optio sed, est iusto exercitationem saepe dolor natus earum?</p>
-                <Link className="btn-view-all-2" to='/'>
-                  Read More<i className="la la-long-arrow-right" />
-                </Link>
+                <p>Welcome to the Malburry experience. Choose from from a limited offer of prime lands in the heart of the garden city kumasi , Ghana. </p>
+                <p>These lots or plots have been designed to be developed into apartments and townhouses to maximize the value and deliver returns on investments. </p>
+                <p>This very limited offer is brought to you by land and homes consult and it’s partners , total lands services , DL group and Kountryman Holding Group.</p>
+                <h2
+                  className="title"
+                > The Offer</h2>
+                <p>Prime lands located in the city centre at Nwamase, Kwadaso. A 25 minutes drive from the Newly built Kumasi International Airport. 15 minutes drive from the Kumasi Mall and other prime areas such as Asokwa and Ahodwo. 
+                  All necessary documentations are facilitated by our team of experts at Lands and homes consult at an extra fee. </p>
               </div>
             </div>
             <div className="col-lg-7">

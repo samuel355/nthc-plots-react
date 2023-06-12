@@ -9,14 +9,14 @@ const Footer = () => {
               <div className="col-xl-7 col-lg-9 text-center">
                 <h2>Get Update</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Aenean fringilla dui nibh, idhendrerit Suspendisse faucibus
-                  nulla accumsan.{" "}
+                  Subscribe to our weekly Newsletter and receive discounted offers of our services directly into your inbox{" "}
                 </p>
-                <div className="rld-single-input">
-                  <input type="text" placeholder="Your email Address" />
-                  <button className="btn">Submit Now</button>
-                </div>
+                <form action="">
+                  <div>
+                    <input type="text" className='form-control' placeholder="Your email Address" />
+                    <input type="submit" value='Submit' style={{marginTop: '10px', padding: 8, backgroundColor: '#fda94f', cursor: 'pointer', color: 'white'}} />
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -58,45 +58,34 @@ const Footer = () => {
           </div>
           <div className="footer-bottom">
             <div className="row">
-              <div className="col-lg-3 col-sm-6">
+              <div className="col-lg-4 col-sm-6">
                 <div className="widget widget_nav_menu">
                   <h4 className="widget-title">
-                    Title
+                    Get IN TOUCH
                   </h4>
                   <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact Us</a></li>
+                    <li><a href="tel:2336788972">+233 678 8972/(233) 0322008282</a></li>
+                    <li><a href="">info@landandhomesconsult.com</a></li>
+                    <li><a href="">Kumasi/Accra/Canada</a></li>
                   </ul>
                 </div>
               </div>
-              <div className="col-lg-3 col-sm-6">
+              <div className="col-lg-4 col-sm-6">
                 <div className="widget widget_nav_menu">
-                  <h4 className="widget-title">Title</h4>
+                  <h4 className="widget-title">Quick Links</h4>
                   <ul>
+                    <li><a href="">Purchase Plot</a></li>
                     <li><a href="">Home</a></li>
                     <li><a href="">About</a></li>
                     <li><a href="">Contact Us</a></li>
                   </ul>
                 </div>
               </div>
-              <div className="col-lg-3 col-sm-6">
-                <div className="widget widget_nav_menu">
-                  <h4 className="widget-title">follow us</h4>
-                  <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Contact Us</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div className="col-lg-3 col-sm-6">
+              <div className="col-lg-4 col-sm-6">
                 <form className="widget widget-subscribe">
+                  <p>Subscribe to our weekly newsletter</p>
                   <div className="rld-single-input">
-                    <input type="text" placeholder="Full Name" />
-                  </div>
-                  <div className="rld-single-input">
-                    <input type="text" placeholder="Your@email.com" />
+                    <input type="text" placeholder="yourname@email.com" />
                   </div>
                   <button className="btn btn-yellow w-100">Subscribe</button>
                 </form>
