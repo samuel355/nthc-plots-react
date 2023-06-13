@@ -1,13 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 import BreadCrumb from '../components/BreadCrumb'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import ToastMesg from '../components/ToastMesg'
+import { useDispatch } from 'react-redux'
+import { contactUs } from '../redux/features/ContactUsSlice'
+
+const contactDetails = {
+    fullname: '',
+    email: '',
+    phone: '',
+    message: ''
+}
 
 const Contact = () => {
+    const [contactData, setContactData] = useState(contactDetails)
+    const {fullname, email, phone, message} = contactData
+    const dispatch = useDispatch()
+
+    const onInputChange = (e) => {
+        e.preventDefault()
+        const {name, value} = e.target
+        setContactData({...contactData, [name]: value});
+    }
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault()
+        let formValue = {
+            fullname, email, phone, message
+        }
+        
+        if(fullname === ''){
+            return toast.error('Enter your full name')
+        }
+        if(email === ''){
+            return toast.error('Enter your email')
+        }
+        if(phone === ''){
+            return toast.error('Enter your phone number')
+        }
+        if(message === ''){
+            return toast.error('Enter the message content')
+        }
+        
+        dispatch(contactUs({formValue, toast}))
+        setContactData({...contactData, fullname: '', email: '', phone: '', message: ''})
+        
+    }
+
   return (
     <>
         <Navbar />
         <BreadCrumb title='Contact Us' />
+        <ToastMesg />
         <div className="contact-area pd-top-100 pd-bottom-65">
             <div className="container">
                 <div className="row">
@@ -18,22 +64,22 @@ const Contact = () => {
                 </div>
             <div className="row mt-3">
                 <div className="col-lg-4">
-                    <form className="contact-form-wrap contact-form-bg">
+                    <form className="contact-form-wrap contact-form-bg" onSubmit={handleFormSubmit}>
                         <h4>Contact Now</h4>
                         <div className="rld-single-input">
-                        <input type="text" placeholder="Name" />
+                        <input type="text" name='fullname' onChange={onInputChange} value={fullname} placeholder="Full Name" />
                         </div>
                         <div className="rld-single-input">
-                        <input type="text" placeholder="Phone" />
+                        <input type="email" name='email' onChange={onInputChange} value={email} placeholder="Email" />
                         </div>
                         <div className="rld-single-input">
-                        <input type="text" placeholder="Phone" />
+                        <input type="text" name='phone' onChange={onInputChange} value={phone} placeholder="Phone" />
                         </div>
                         <div className="rld-single-input">
-                        <textarea rows={10} placeholder="Message" defaultValue={""} />
+                        <textarea rows={10} name='message' onChange={onInputChange} value={message} placeholder="Message" />
                         </div>
                         <div className="btn-wrap text-center">
-                        <button className="btn btn-yellow">Submit</button>
+                        <button type='submit' className="btn btn-yellow">Submit</button>
                         </div>
                     </form>
                 </div>

@@ -5,6 +5,7 @@ const connectDB = require('./mongoDbConnect.js');
 const userRouter = require('./routes/UserRoutes.js');
 const plotRouter = require('./routes/PlotRoutes.js');
 const visitorRouter = require('./routes/VisitorRoutes.js');
+const contactUsRouter = require('./routes/ContactUsRoutes.js');
 
 dotenv.config();
 const app = express()
@@ -23,5 +24,6 @@ app.get('/api', (req, res) => {
 app.use('/api', userRouter) //User Router
 app.use('/api', plotRouter)
 app.use('/api', visitorRouter)
+app.use('/api', contactUsRouter)
 
 app.listen(port, console.log(`NTHC PLOTS Server is running on port ${port}`));

@@ -24,3 +24,9 @@ export const sendInterest = (formValue) => API.post('/interests', formValue)
 
 //Update Plot
 export const plotUpdate = (id, plotDetails) => API.patch(`plot/updates/${id}`, plotDetails)
+
+//Send Message through contact form 
+export const contactMsg = (formValue) => API.post('/contact-us', formValue)
+
+//Subscribe to news letter
+export const subscribeToNewsLetter = (email) => API.post('/subscribe-news-letter', email)

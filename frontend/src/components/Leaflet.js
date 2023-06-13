@@ -78,6 +78,7 @@ const Leaflet = () => {
                         <Popup style={{width: '100%'}}>
                             <h6>Plot Details - <span style={{color: `${renderColor(plot.properties?.Plot_Status)}`, fontSize: 12, fontWeight: 700}}>{plot.properties?.Plot_Status}</span></h6> <hr />
                             <p style={{fontSize: 15, fontWeight: 500}}>{`${plot.properties?.Plot_Detail}`}</p>
+                            <p>Size: <span style={{fontWeight: 600}}>{plot.properties?.Plot_Size}</span></p>
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 {
                                     plot.properties?.Plot_Status !== 'SOLD' &&(

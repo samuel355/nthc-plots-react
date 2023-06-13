@@ -1,6 +1,21 @@
 import React from 'react'
+import {toast} from 'react-toastify'
 import apartImg from '../assets/img/feature/1.png'
+import { useDispatch } from 'react-redux'
+import { subscribeTNL } from '../redux/features/ContactUsSlice'
+
 const Footer = () => {
+  const [email, setEmail] = useState('')
+  const dispatch = useDispatch()
+
+  const onFormSubmit = (e) => {
+    e.preventDefault()
+    if(email === ''){
+      return toast.error("Please Enter you email address")
+    }
+    dispatch(subscribeTNL({email, toast}))
+
+  }
   return (
     <footer className="footer-area style-two pd-top-100 pd-bottom-70">
         <div className="container">
@@ -11,9 +26,9 @@ const Footer = () => {
                 <p>
                   Subscribe to our weekly Newsletter and receive discounted offers of our services directly into your inbox{" "}
                 </p>
-                <form action="">
+                <form action="" onSubmit={onFormSubmit}>
                   <div>
-                    <input type="text" className='form-control' placeholder="Your email Address" />
+                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className='form-control' placeholder="Your email Address" />
                     <input type="submit" value='Submit' style={{marginTop: '10px', padding: 8, backgroundColor: '#fda94f', cursor: 'pointer', color: 'white'}} />
                   </div>
                 </form>
@@ -82,10 +97,10 @@ const Footer = () => {
                 </div>
               </div>
               <div className="col-lg-4 col-sm-6">
-                <form className="widget widget-subscribe">
+                <form className="widget widget-subscribe" onSubmit={onFormSubmit}>
                   <p>Subscribe to our weekly newsletter</p>
                   <div className="rld-single-input">
-                    <input type="text" placeholder="yourname@email.com" />
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" placeholder="yourname@email.com" />
                   </div>
                   <button className="btn btn-yellow w-100">Subscribe</button>
                 </form>

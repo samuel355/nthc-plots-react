@@ -18,9 +18,10 @@ const Home = () => {
               <div className="section-title mb-lg-0">
                 <h2
                   className="title"
-                >About Us</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore a quisquam magni nostrum qui, perferendis autem asperiores necessitatibus sit ea debitis optio sed, est iusto exercitationem saepe dolor natus earum?</p>
-                <Link className="btn-view-all-2" to='/'>
+                >The Offer</h2>
+                <p>Prime lands located in the city centre at Nwamase , Kwadaso. A 25 minutes drive from the Newly built Kumasi International Airport. 15 minutes drive from the Kumasi Mall and other prime areas such as Asokwa and Ahodwo. 
+All necessary documentations are facilitated by our team of experts at Lands and homes consult at an extra fee. </p>
+                <Link className="btn-view-all-2" to='/about-us'>
                   Read More<i className="la la-long-arrow-right" />
                 </Link>
               </div>
