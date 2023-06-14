@@ -1,21 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {toast} from 'react-toastify'
 import apartImg from '../assets/img/feature/1.png'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { subscribeTNL } from '../redux/features/ContactUsSlice'
 
 const Footer = () => {
   const [email, setEmail] = useState('')
+  const [Femail, setFEmail] = useState('')
   const dispatch = useDispatch()
+  const {error, loading} = useSelector((state) => ({...state.contactUs}))
+
+  useEffect(() => {
+    if(error){
+      return toast.error(error)
+    }
+  },[error])
 
   const onFormSubmit = (e) => {
     e.preventDefault()
     if(email === ''){
-      return toast.error("Please Enter you email address")
+      return toast.error("Please Enter your email address")
     }
-    dispatch(subscribeTNL({email, toast}))
-
+    let formValue = {
+      email
+    }
+    dispatch(subscribeTNL({formValue, toast}))
+    setEmail('')
   }
+  
+  const onFFormSubmit = (e) => {
+    e.preventDefault()
+    if(Femail === ''){
+      return toast.error("Please Enter your email address")
+    }
+    let formValue = {
+      Femail
+    }
+    dispatch(subscribeTNL({formValue, toast}))
+    setFEmail('')
+  }
+
   return (
     <footer className="footer-area style-two pd-top-100 pd-bottom-70">
         <div className="container">
@@ -29,7 +53,7 @@ const Footer = () => {
                 <form action="" onSubmit={onFormSubmit}>
                   <div>
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className='form-control' placeholder="Your email Address" />
-                    <input type="submit" value='Submit' style={{marginTop: '10px', padding: 8, backgroundColor: '#fda94f', cursor: 'pointer', color: 'white'}} />
+                    <input type="submit" disabled={loading ? true : false} value='Submit' style={{marginTop: '10px', padding: 8, backgroundColor: '#fda94f', cursor: 'pointer', color: 'white'}} />
                   </div>
                 </form>
               </div>
@@ -53,17 +77,12 @@ const Footer = () => {
                     </li>
                     <li>
                         <a href="" target="_blank">
-                          <i className="fa fa-twitter" />
+                          <i className="fa fa-linkedin" />
                         </a>
                     </li>
                     <li>
                         <a href="" target="_blank">
-                          <i className="fa fa-twitter" />
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" target="_blank">
-                          <i className="fa fa-twitter" />
+                          <i className="fa fa-instagram" />
                         </a>
                     </li>
                   </ul>
@@ -97,7 +116,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="col-lg-4 col-sm-6">
-                <form className="widget widget-subscribe" onSubmit={onFormSubmit}>
+                <form className="widget widget-subscribe" onSubmit={onFFormSubmit}>
                   <p>Subscribe to our weekly newsletter</p>
                   <div className="rld-single-input">
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="text" placeholder="yourname@email.com" />

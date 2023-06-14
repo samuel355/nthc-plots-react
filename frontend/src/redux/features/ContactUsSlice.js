@@ -15,9 +15,9 @@ export const contactUs = createAsyncThunk('contactUs', async ({formValue, toast}
 })
 
 //Subscribing to news letter
-export const subscribeTNL = createAsyncThunk('subscribeTNL', async({email, toast}, {rejectWithValue}) => {
+export const subscribeTNL = createAsyncThunk('subscribeTNL', async({formValue, toast}, {rejectWithValue}) => {
     try {
-        const response = await api.subscribeToNewsLetter(email)
+        const response = await api.subscribeToNewsLetter(formValue)
         toast.success('Thank you for subscribing to our news letter')
         return response.data;
         

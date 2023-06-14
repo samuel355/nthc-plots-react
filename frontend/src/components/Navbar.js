@@ -9,7 +9,6 @@ const Navbar = () => {
   const dispatch = useDispatch()
   const {user} = useSelector((state) => ({...state.user}))
 
-
   return (
     <div>
         <div className="navbar-area">

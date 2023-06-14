@@ -29,4 +29,4 @@ export const plotUpdate = (id, plotDetails) => API.patch(`plot/updates/${id}`, p
 export const contactMsg = (formValue) => API.post('/contact-us', formValue)
 
 //Subscribe to news letter
-export const subscribeToNewsLetter = (email) => API.post('/subscribe-news-letter', email)
+export const subscribeToNewsLetter = (formValue) => API.post('/subscribe-news-letter', formValue)

@@ -31,15 +31,14 @@ contactUsRouter.post('/subscribe-news-letter', asyncHandler(async(req, res) => {
     try {
         const findEmail = await EmailModel.findOne({email})
         if(findEmail) {
-            res.json({message: `Sorry you have already subscribed to this news letter with this email - ${email}`})
+            return res.status(404).json({message: `Sorry you have already subscribed to this news letter with this email - ${email}`})
         }else{
-            const sub = await EmailModel.create({email})
+            const sub = await EmailModel.create({email});
             if(sub){
-                res.status(201).json(sub)
+                return res.status(201).json(sub)
             }else{
-                res.status(401).json({message: 'Sorry error occurred while subscribing'})
+                return res.status(404).json({message: 'Sorry error occurred while subscribing'})
             }
-            
         }
         
     } catch (error) {
